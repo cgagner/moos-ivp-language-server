@@ -24,6 +24,11 @@ cargo install moos-ivp-language-server
 TODO: This cannot be completed until the `moos-rs` refactor has been
 completed because we need to be able to find the `moos-parsers` crate.
 
+```bash
+cd moos-ivp-language-server
+cargo install --path .
+```
+
 ## Neovim configuration
 
 ### New Neovim users

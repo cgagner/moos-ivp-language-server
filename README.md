@@ -92,10 +92,22 @@ testing with.
          - neovim
        - src
 * [ ] Work on CI/CD, packaging, and releases.
+* [ ] Update to support command-line arguments:
+  - [ ] `--help` Print help
+  - [ ] `--version` Print the version
+  - [ ] `--log-level=<level>` Set the log level of the application.
+* [ ] Document editor setup
+  - [ ] VS Code
+  - [ ] Neovim
+  - [ ] Emacs
+* [X] BHV Semantic highlighting
+* [ ] Add the ability to validate files from the command line
+
+### Planned Features
+
 * [X] BHV Semantic highlighting
       - [ ] Add support to for inactive regions
       - [ ] Add support for parsing conditions
-* [ ] Add the ability to validate files from the command line
 * [ ] Includes that are not found should display an error or warning.
 * [ ] Includes that are found should recursively check for errors in the
       included files. Display an error if the include has an error.
