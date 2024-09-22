@@ -88,8 +88,10 @@ export async function activate(context: vscode.ExtensionContext) {
 
   // TODO: Need to switch this to release
   const serverCommand = context.asAbsolutePath(
-    path.join('ext', 'moos-rs', 'target', 'debug', 'moos-ivp-language-server')
+    path.join('server', 'moos-ivp-language-server')
   );
+
+  console.log('MOOS-IvP server commend ' + serverCommand);
 
   function createClient(folder: vscode.WorkspaceFolder, debugPort: number): LanguageClient {
     console.log('Starting client for: ' + folder ? folder.uri.toString() : "null");

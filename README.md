@@ -106,8 +106,8 @@ testing with.
 ### Planned Features
 
 * [X] BHV Semantic highlighting
-      - [ ] Add support to for inactive regions
-      - [ ] Add support for parsing conditions
+  - [ ] Add support to for inactive regions
+  - [ ] Add support for parsing conditions
 * [ ] Includes that are not found should display an error or warning.
 * [ ] Includes that are found should recursively check for errors in the
       included files. Display an error if the include has an error.
