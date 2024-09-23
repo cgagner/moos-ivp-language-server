@@ -21,4 +21,5 @@ Cargo.lock
 .idea/
 
 # VS Code
-.vscode/
+.vscode/**
+!.vscode/launch.json

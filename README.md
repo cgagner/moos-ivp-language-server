@@ -102,8 +102,22 @@ testing with.
   - [ ] Emacs
 * [X] BHV Semantic highlighting
 * [ ] Add the ability to validate files from the command line
+* [ ] Add the ability to format files from the command line: `moosfmt`
+* [ ] Fix code completion on the last line
+* [ ] Fix parsers handling of EOF
 
 ### Planned Features
+
+#### Parsers
+
+* [X] NSPlug
+* [X] MOOS Missions
+* [X] IvP Behavior files
+* [ ] MOOS-IvP Emacs settings for keywords
+* [ ] Create new file format for Behavior and MOOS app variables with description
+* [ ] MOOS-IvP Manifests
+
+#### Language Server Features
 
 * [X] BHV Semantic highlighting
   - [ ] Add support to for inactive regions
@@ -112,3 +126,35 @@ testing with.
 * [ ] Includes that are found should recursively check for errors in the
       included files. Display an error if the include has an error.
 * [ ] Add/change includes to have definitions
+* [ ] Parse Workspace Configuration
+* [X] Semantic Tokens
+* [X] Diagnostics
+* [ ] Code Actions
+* [ ] Go to Definitions
+* [X] Document links
+* [ ] Completion Suggestions
+* [ ] Hover
+  - [ ] Show values of variables
+  - [ ] Show help text for Mission ProcessConfig parameters
+  - [ ] Show help text for Behavior parameters
+* [ ] Format
+  - [ ] Plug files
+  - [ ] Mission files
+  - [ ] Behavior files
+  - [ ] Left justified, left justified aligned equals, right justified
+* [X] Inlay Hints
+* [ ] Tracing via setTrace
+
+#### Misc
+
+  - [X] Setup tracing
+  - [ ] Handle command line arguments
+  - [ ] Create cache of files being changed. Need to clear cache when files
+        are saved or closed.
+  - [ ] Create Threads for parsing the entire workspace
+  - [ ] Create thread for formatting
+
+#### Wishlist
+
+  - [ ] Implement fuzzy find
+  - [ ] Implement Levenshtein distance for closest word suggestions

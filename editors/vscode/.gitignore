@@ -1,4 +1,6 @@
-/client/
-/client/node_modules/
-/node_modules/
+/node_modules
+/client/tsconfig.tsbuildinfo
+/client/out
+/client/node_modules
+.vscode-test/
 **/*.vsix
