@@ -153,6 +153,7 @@ testing with.
         are saved or closed.
   - [ ] Create Threads for parsing the entire workspace
   - [ ] Create thread for formatting
+  - [ ] Add error of `#include ""` is used - empty include
 
 #### Wishlist
 
