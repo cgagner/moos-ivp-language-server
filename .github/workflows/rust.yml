@@ -29,7 +29,7 @@ jobs:
       with:
         name: moos-ivp-language-server-${{ matrix.os }}.zip
         path: |
-          !target/release/moos-ivp-language-server.d
           target/release/moos-ivp-language-server*
+          !target/release/moos-ivp-language-server.d
         compression-level: 9
         if-no-files-found: error
