@@ -17,17 +17,22 @@ jobs:
           - os: windows-latest
             target: x86_64-pc-windows-msvc
             target-name: win32-x64
+            exe-name: target/release/moos-ivp-language-server.exe
           - os: windows-latest
             target: i686-pc-windows-msvc
+            exe-name: target/release/moos-ivp-language-server.exe
           - os: ubuntu-20.04
             target: x86_64-unknown-linux-gnu
             target-name: linux-x64
+            exe-name: target/release/moos-ivp-language-server
           - os: macos-12
             target: x86_64-apple-darwin
             target-name: darwin-x64
+            exe-name: target/release/moos-ivp-language-server
           - os: macos-12
             target: aarch64-apple-darwin
             target-name: darwin-arm64
+            exe-name: target/release/moos-ivp-language-server
 
     runs-on: ${{ matrix.os }}
 
@@ -42,9 +47,9 @@ jobs:
       with:
         name: moos-ivp-language-server-${{ matrix.target-name }}.zip
         path: |
-          target/release/moos-ivp-language-server*
+          ${{ matrix.exe-name }}
           !target/release/moos-ivp-language-server.d
         compression-level: 9
         if-no-files-found: error
     - name: Setup VS Code Extension
-      run: cp target/release/moos-ivp-language-server editors/vscode/server/
+      run: cp ${{ matrix.exe-name }} editors/vscode/server/
