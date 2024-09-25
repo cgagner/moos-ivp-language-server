@@ -20,6 +20,7 @@ jobs:
             exe-name: target/release/moos-ivp-language-server.exe
           - os: windows-latest
             target: i686-pc-windows-msvc
+            target-name: win32-i686
             exe-name: target/release/moos-ivp-language-server.exe
           - os: ubuntu-20.04
             target: x86_64-unknown-linux-gnu
@@ -37,12 +38,17 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Repostiory
+      uses: actions/checkout@v4
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
     - name: Build
       run: cargo build --release --verbose
     - name: Run tests
       run: cargo test --verbose
-    - name: Upload
+    - name: Upload Language Server
       uses: actions/upload-artifact@v4
       with:
         name: moos-ivp-language-server-${{ matrix.target-name }}.zip
@@ -53,3 +59,16 @@ jobs:
         if-no-files-found: error
     - name: Setup VS Code Extension
       run: cp ${{ matrix.exe-name }} editors/vscode/server/
+    - name: Build VS Code Extension
+      run: npm install && npm run compile
+      working-directory: editors/vscode
+    - name: Package VS Code Extension
+      run: npx @vscode/vsce package --out moos-ivp-editor-${{ matrix.target-name }}.vsix
+      working-directory: editors/vscode
+    - name: Upload VS Code Extension
+      uses: actions/upload-artifact@v4
+      with:
+        name: moos-ivp-editor-${{ matrix.target-name }}.vsix
+        path: editors/vscode/moos-ivp-editor-${{ matrix.target-name }}.vsix
+        compression-level: 0
+        if-no-files-found: error
