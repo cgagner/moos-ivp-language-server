@@ -76,16 +76,15 @@ MOOS Mission files, IvP Behavior files, and NSPlug template files.
 List of items until we have a minimum viable product for others to start
 testing with. 
 
-* [ ] Reorganize repositories
+* [X] Reorganize repositories
      - moos-rs
-       - crates  
-          - moos-parser
-          - moos
-          - moos-geodesy
+        - moos-parser
+        - moos
+        - moos-geodesy
      - moos-ivp-language-server
        - crates
          - lsp-server-derive-macro
-         - xtask
+         - ~~xtask~~: No longer need xtask. Can just be handled in CI/CD.
        - editors
          - vscode
          - emacs
@@ -104,7 +103,8 @@ testing with.
 * [ ] Add the ability to validate files from the command line
 * [ ] Add the ability to format files from the command line: `moosfmt`
 * [ ] Fix code completion on the last line
-* [ ] Fix parsers handling of EOF
+* [X] Fix parsers handling of EOF
+* [ ] Change logging level and remove unneeded print statements.
 
 ### Planned Features
 
@@ -148,7 +148,6 @@ testing with.
 #### Misc
 
   - [X] Setup tracing
-  - [ ] Handle command line arguments
   - [ ] Create cache of files being changed. Need to clear cache when files
         are saved or closed.
   - [ ] Create Threads for parsing the entire workspace
