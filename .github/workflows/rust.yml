@@ -58,8 +58,8 @@ jobs:
       working-directory: target/release
     - name: Compress application
       run: |
-        zip moos-ivp-language-server-${{ matrix.target-name }}.zip ${{ matrix.exe-name }}
-        echo "ZIP_NAME=moos-ivp-language-server-${{ matrix.target-name }}.tar.gz" >> $GITHUB_ENV
+        7z a moos-ivp-language-server-${{ matrix.target-name }}.7z ${{ matrix.exe-name }}
+        echo "ZIP_NAME=moos-ivp-language-server-${{ matrix.target-name }}.7z" >> $GITHUB_ENV
       if: ${{ endsWith(matrix.exe-name, '.exe') }}
       working-directory: target/release
     - name: Upload Language Server
@@ -95,7 +95,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: moos-ivp-language-server-win32-x64.zip
+          name: moos-ivp-language-server-win32-x64.7z
           path: dist
       - uses: actions/download-artifact@v4
         with:
@@ -103,7 +103,7 @@ jobs:
           path: dist
       - uses: actions/download-artifact@v4
         with:
-          name: moos-ivp-language-server-win32-i686.zip
+          name: moos-ivp-language-server-win32-i686.7z
           path: dist
       - uses: actions/download-artifact@v4
         with:
