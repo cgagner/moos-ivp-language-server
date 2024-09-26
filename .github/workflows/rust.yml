@@ -72,3 +72,53 @@ jobs:
         path: editors/vscode/moos-ivp-editor-${{ matrix.target-name }}.vsix
         compression-level: 0
         if-no-files-found: error
+  
+  publish:
+    name: Publish
+    # TODO: This should get updated to only run on tags. Inverting for testing.
+    if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
+    runs-on: ubuntu-latest
+    needs: ["build"]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-language-server-win32-x64.zip
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-editor-win32-x64.vsix
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-language-server-win32-i686.zip
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-editor-win32-i686.vsix
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-language-server-linux-x64.zip
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-editor-linux-x64.vsix
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-language-server-darwin-x64.zip
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-editor-darwin-x64.vsix
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-language-server-darwin-arm64.zip
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-editor-darwin-arm64.vsix
+          path: dist
+      - name: List files
+        run: ls -al dist/*
