@@ -49,16 +49,25 @@ jobs:
     - name: Run tests
       run: cargo test --verbose
     - name: Copy Executable to VS Code Extension
-      run: cp ${{ matrix.exe-name }} editors/vscode/server/
+      run: cp target/release/${{ matrix.exe-name }} editors/vscode/server/
     - name: Compress application
-      run: tar -zcf moos-ivp-language-server-${{ matrix.target-name }}.tar.gz ${{ matrix.exe-name }}
+      run: |
+        tar -zcf moos-ivp-language-server-${{ matrix.target-name }}.tar.gz ${{ matrix.exe-name }}
+        echo "ZIP_NAME=moos-ivp-language-server-${{ matrix.target-name }}.tar.gz" >> $GITHUB_ENV
+      if: ${{ ! endsWith(matrix.exe-name, '.exe') }}
+      working-directory: target/release
+    - name: Compress application
+      run: |
+        zip moos-ivp-language-server-${{ matrix.target-name }}.zip ${{ matrix.exe-name }}
+        echo "ZIP_NAME=moos-ivp-language-server-${{ matrix.target-name }}.tar.gz" >> $GITHUB_ENV
+      if: ${{ endsWith(matrix.exe-name, '.exe') }}
       working-directory: target/release
     - name: Upload Language Server
       uses: actions/upload-artifact@v4
       with:
-        name: moos-ivp-language-server-${{ matrix.target-name }}.tar.gz
+        name: ${{env.ZIP_NAME}}
         path: |
-          target/release/moos-ivp-language-server-${{ matrix.target-name }}.tar.gz
+          target/release/${{env.ZIP_NAME}}
           !target/release/moos-ivp-language-server.d
         compression-level: 9
         if-no-files-found: error
@@ -86,7 +95,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: moos-ivp-language-server-win32-x64.tar.gz
+          name: moos-ivp-language-server-win32-x64.zip
           path: dist
       - uses: actions/download-artifact@v4
         with:
@@ -94,7 +103,7 @@ jobs:
           path: dist
       - uses: actions/download-artifact@v4
         with:
-          name: moos-ivp-language-server-win32-i686.tar.gz
+          name: moos-ivp-language-server-win32-i686.zip
           path: dist
       - uses: actions/download-artifact@v4
         with:
