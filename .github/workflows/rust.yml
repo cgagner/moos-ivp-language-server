@@ -56,7 +56,7 @@ jobs:
       with:
         name: moos-ivp-language-server-${{ matrix.target-name }}.tar.gz
         path: |
-          ${{ matrix.exe-name }}
+          target/release/moos-ivp-language-server-${{ matrix.target-name }}.tar.gz
           !target/release/moos-ivp-language-server.d
         compression-level: 9
         if-no-files-found: error
