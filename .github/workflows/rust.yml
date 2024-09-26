@@ -14,26 +14,26 @@ jobs:
     strategy:
       matrix:
         include:
-          # - os: windows-latest
-          #   target: x86_64-pc-windows-msvc
-          #   target-name: win32-x64
-          #   exe-name: target/release/moos-ivp-language-server.exe
-          # - os: windows-latest
-          #   target: i686-pc-windows-msvc
-          #   target-name: win32-i686
-          #   exe-name: target/release/moos-ivp-language-server.exe
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            target-name: win32-x64
+            exe-name: moos-ivp-language-server.exe
+          - os: windows-latest
+            target: i686-pc-windows-msvc
+            target-name: win32-i686
+            exe-name: moos-ivp-language-server.exe
           - os: ubuntu-20.04
             target: x86_64-unknown-linux-gnu
             target-name: linux-x64
-            exe-name: target/release/moos-ivp-language-server
-          # - os: macos-12
-          #   target: x86_64-apple-darwin
-          #   target-name: darwin-x64
-          #   exe-name: target/release/moos-ivp-language-server
-          # - os: macos-12
-          #   target: aarch64-apple-darwin
-          #   target-name: darwin-arm64
-          #   exe-name: target/release/moos-ivp-language-server
+            exe-name: moos-ivp-language-server
+          - os: macos-12
+            target: x86_64-apple-darwin
+            target-name: darwin-x64
+            exe-name: moos-ivp-language-server
+          - os: macos-12
+            target: aarch64-apple-darwin
+            target-name: darwin-arm64
+            exe-name: moos-ivp-language-server
 
     runs-on: ${{ matrix.os }}
 
@@ -48,10 +48,13 @@ jobs:
       run: cargo build --release --verbose
     - name: Run tests
       run: cargo test --verbose
+    - name: Compress application
+      run: tar -zcf moos-ivp-language-server-${{ matrix.target-name }}.tar.gz ${{ matrix.exe-name }}
+      working-directory: target/release
     - name: Upload Language Server
       uses: actions/upload-artifact@v4
       with:
-        name: moos-ivp-language-server-${{ matrix.target-name }}.zip
+        name: moos-ivp-language-server-${{ matrix.target-name }}.tar.gz
         path: |
           ${{ matrix.exe-name }}
           !target/release/moos-ivp-language-server.d
@@ -81,46 +84,46 @@ jobs:
     permissions:
       contents: write  
     steps:
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     name: moos-ivp-language-server-win32-x64.zip
-      #     path: dist
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     name: moos-ivp-editor-win32-x64.vsix
-      #     path: dist
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     name: moos-ivp-language-server-win32-i686.zip
-      #     path: dist
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     name: moos-ivp-editor-win32-i686.vsix
-      #     path: dist
       - uses: actions/download-artifact@v4
         with:
-          name: moos-ivp-language-server-linux-x64.zip
+          name: moos-ivp-language-server-win32-x64.tar.gz
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-editor-win32-x64.vsix
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-language-server-win32-i686.tar.gz
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-editor-win32-i686.vsix
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-language-server-linux-x64.tar.gz
           path: dist
       - uses: actions/download-artifact@v4
         with:
           name: moos-ivp-editor-linux-x64.vsix
           path: dist
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     name: moos-ivp-language-server-darwin-x64.zip
-      #     path: dist
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     name: moos-ivp-editor-darwin-x64.vsix
-      #     path: dist
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     name: moos-ivp-language-server-darwin-arm64.zip
-      #     path: dist
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     name: moos-ivp-editor-darwin-arm64.vsix
-      #     path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-language-server-darwin-x64.tar.gz
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-editor-darwin-x64.vsix
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-language-server-darwin-arm64.tar.gz
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: moos-ivp-editor-darwin-arm64.vsix
+          path: dist
       - name: List files
         run: ls -al dist/*
       - name: Release
