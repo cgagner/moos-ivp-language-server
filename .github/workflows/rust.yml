@@ -59,7 +59,7 @@ jobs:
     - name: Compress application
       run: |
         7z a moos-ivp-language-server-${{ matrix.target-name }}.7z ${{ matrix.exe-name }}
-        echo "ZIP_NAME=moos-ivp-language-server-${{ matrix.target-name }}.7z" >> $GITHUB_ENV
+        echo "ZIP_NAME=moos-ivp-language-server-${{ matrix.target-name }}.7z" >> $env:GITHUB_ENV
       if: ${{ endsWith(matrix.exe-name, '.exe') }}
       working-directory: target/release
     - name: Upload Language Server
