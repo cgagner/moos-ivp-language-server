@@ -48,6 +48,8 @@ jobs:
       run: cargo build --release --verbose
     - name: Run tests
       run: cargo test --verbose
+    - name: Copy Executable to VS Code Extension
+      run: cp ${{ matrix.exe-name }} editors/vscode/server/
     - name: Compress application
       run: tar -zcf moos-ivp-language-server-${{ matrix.target-name }}.tar.gz ${{ matrix.exe-name }}
       working-directory: target/release
@@ -60,8 +62,6 @@ jobs:
           !target/release/moos-ivp-language-server.d
         compression-level: 9
         if-no-files-found: error
-    - name: Setup VS Code Extension
-      run: cp ${{ matrix.exe-name }} editors/vscode/server/
     - name: Build VS Code Extension
       run: npm install && npm run compile
       working-directory: editors/vscode
