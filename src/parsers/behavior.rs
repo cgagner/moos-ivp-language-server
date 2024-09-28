@@ -20,7 +20,7 @@ use moos_parser::{
     lexers::{self, Location, TokenMap, TokenRange},
     BehaviorParser, ParseError,
 };
-use tracing::{debug, error, info, trace, warn};
+use tracing::{debug, info};
 
 pub fn parse(document: &mut Document) {
     // NOTE: This clone is of a Arc<str>. It should not perform a deep copy
@@ -32,14 +32,14 @@ pub fn parse(document: &mut Document) {
     let mut state = moos_parser::behavior::lexer::State::default();
     let result = BehaviorParser::new().parse(&mut state, text.deref(), lexer);
 
-    info!("Parse Results: {result:?}");
+    debug!("Parse Results: {result:?}");
 
     if let Ok(lines) = result {
         handle_lines(document, &lines, 0);
     }
 
     state.errors.iter().for_each(|e| {
-        error!("Parse Error: {e:?}");
+        info!("Parse Error: {e:?}");
     });
     // TODO: Add new method to handle converting errors into diagnostics
     // TODO: Only create diagnostics if the client supports diagnostics

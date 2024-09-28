@@ -90,11 +90,11 @@ testing with.
          - emacs
          - neovim
        - src
-* [ ] Work on CI/CD, packaging, and releases.
-* [ ] Update to support command-line arguments:
-  - [ ] `--help` Print help
-  - [ ] `--version` Print the version
-  - [ ] `--log-level=<level>` Set the log level of the application.
+* [X] Work on CI/CD, packaging, and releases.
+* [X] Update to support command-line arguments:
+  - [X] `--help` Print help
+  - [X] `--version` Print the version
+  - [X] `--log-level=<level>` Set the log level of the application.
 * [ ] Document editor setup
   - [ ] VS Code
   - [ ] Neovim
@@ -104,7 +104,7 @@ testing with.
 * [ ] Add the ability to format files from the command line: `moosfmt`
 * [ ] Fix code completion on the last line
 * [X] Fix parsers handling of EOF
-* [ ] Change logging level and remove unneeded print statements.
+* [X] Change logging level and remove unneeded print statements.
 
 ### Planned Features
 

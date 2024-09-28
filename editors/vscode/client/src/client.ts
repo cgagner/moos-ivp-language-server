@@ -96,21 +96,11 @@ export async function activate(context: vscode.ExtensionContext) {
   function createClient(folder: vscode.WorkspaceFolder, debugPort: number): LanguageClient {
     console.log('Starting client for: ' + folder ? folder.uri.toString() : "null");
     const debugOptions = { execArgv: ['--nolazy', `--inspect=${debugPort}`] };
-    //export interface Executable {
-    // 		command: string;
-    // 		args?: string[];
-    // 		options?: ExecutableOptions;
-    // }
-    // 	export interface ExecutableOptions {
-    // 		cwd?: string;
-    // 		env?: any;
-    // 		detached?: boolean;
-    // 		shell?: boolean;
-    // }
     const serverOptions: ServerOptions = {
       run: { command: serverCommand },
       debug: {
         command: serverCommand,
+        args: ["--log-level", "debug"]
       }
     };
 

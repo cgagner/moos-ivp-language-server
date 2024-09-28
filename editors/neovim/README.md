@@ -52,6 +52,9 @@ For more experience Neovim users, you can manually edit your
         },
       }
 
+      -- Enable inlay hints
+      vim.lsp.inlay_hint.enable(true)
+
       -- Create an event handler for the FileType autocommand
       vim.api.nvim_create_autocmd('FileType', {
         -- This handler will fire when the buffer's 'filetype' is "python"

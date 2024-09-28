@@ -1,6 +1,7 @@
 [package]
 name = "moos-ivp-language-server"
 version = "0.1.0"
+description = "LSP server for the MOOS-IvP autonomy software suite."
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -8,6 +9,7 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.81"
 chrono = "0.4.35"
+clap = { version = "4.5.18", features = ["derive", "env"] }
 lsp-server = "0.7.6"
 lsp-server-derive-macro = { version = "0.1.0", path = "crates/lsp-server-derive-macro" }
 lsp-types = "0.95.1"

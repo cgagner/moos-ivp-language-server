@@ -19,7 +19,7 @@ use moos_parser::{
     },
     FormatOptions, ParseError, PlugParser, TextFormatter,
 };
-use tracing::{debug, error, info, trace, warn};
+use tracing::{debug, info};
 
 use super::{find_relative_file, new_error_diagnostic};
 
@@ -52,7 +52,7 @@ pub fn parse(document: &mut Document) {
     let mut state = moos_parser::nsplug::lexer::State::default();
     let result = PlugParser::new().parse(&mut state, text.deref(), lexer);
 
-    info!("Parse Results: {result:?}");
+    debug!("Parse Results: {result:?}");
 
     if let Ok(lines) = result {
         handle_lines(document, &lines);
@@ -60,7 +60,7 @@ pub fn parse(document: &mut Document) {
     }
 
     state.errors.iter().for_each(|e| {
-        error!("Parse Error: {e:?}");
+        info!("Parse Error: {e:?}");
     });
     // TODO: Add new method to handle converting errors into diagnostics
     // TODO: Only create diagnostics if the client supports diagnostics

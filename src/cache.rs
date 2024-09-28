@@ -365,8 +365,6 @@ impl Document {
     pub fn get_formats(&self, options: &FormattingOptions) -> Option<Vec<TextEdit>> {
         let format_options = options.into();
 
-        tracing::info!("Get Formats");
-
         // Always parser the nsplug first
         match self.file_type {
             FileType::PlugMoosMission | FileType::PlugBehavior | FileType::Plug => {
@@ -483,7 +481,7 @@ impl Document {
 
                     return Some(CompletionResponse::List(list));
                 } else {
-                    tracing::info!("Unknown completion trigger: {trigger}");
+                    tracing::warn!("Unknown completion trigger: {trigger}");
                 }
             }
         }

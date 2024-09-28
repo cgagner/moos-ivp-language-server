@@ -17,10 +17,8 @@ use lsp_types::{
 };
 
 use crate::{cache::Project, workspace};
-use tracing::debug as mlog;
-use tracing::{
-    debug, debug_span, error, error_span, info, info_span, trace, trace_span, warn, warn_span,
-};
+use tracing::trace as mlog;
+use tracing::{debug, error, info, trace, warn};
 
 use lsp_server_derive_macro::{notification_handler, request_handler};
 
@@ -104,7 +102,7 @@ impl Handler {
     //-----------------------------------------------------------------------------
     pub fn handle_request(&mut self, request: lsp_server::Request) -> Option<Response> {
         use MyRequests::*;
-        info!("Got request: {:?}", request.method);
+        debug!("Got request: {:?}", request.method);
         match MyRequests::from(request) {
             Completion(id, params) => {
                 mlog!("Got completion request #{id}: {params:?}");
@@ -186,7 +184,7 @@ impl Handler {
                 };
                 return Some(response);
             }
-            Unhandled(req) => info!("Unhandled Request {:?}", req.method),
+            Unhandled(req) => info!("Unhandled LSP Request {:?}", req.method),
             Error { method, error } => {
                 error!("Failed to handle Request {method}: {error:?}")
             }
@@ -331,11 +329,11 @@ impl Handler {
         use MyNotifications::*;
         match MyNotifications::from(notification) {
             DidChangeConfiguration(params) => {
-                info!("Configuration Changed: {params:?}")
+                debug!("Configuration Changed: {params:?}")
             }
             DidChangeTextDocument(params) => return self.handle_did_change_text_document(params),
             DidOpenTextDocument(params) => return self.handle_did_open_text_document(params),
-            Unhandled(n) => info!("Unhandled Notification: {:?}", n.method),
+            Unhandled(n) => info!("Unhandled LSP Notification: {:?}", n.method),
             Error { method, error } => error!("Failed to handle Notification {method}: {error:?}"),
         }
 
@@ -348,7 +346,7 @@ impl Handler {
     ) -> anyhow::Result<()> {
         let uri = &params.text_document.uri;
         let language_id = &params.text_document.language_id;
-        info!("Document Opened: {uri} {language_id}");
+        debug!("Document Opened: {uri} {language_id}");
 
         if let Ok(cache) = &mut self.cache.lock() {
             let document = cache.insert(&uri, params.text_document.text);
@@ -378,7 +376,7 @@ impl Handler {
         let uri = &params.text_document.uri;
         // We are only handling full changes so don't do anything with version
         //let version = params.text_document.version;
-        info!("Document Changed: {uri:?}");
+        debug!("Document Changed: {uri:?}");
         if params.content_changes.len() != 1 {
             return Err(anyhow::Error::msg(format!(
                 "Text document changes expected to be full for document: {}",

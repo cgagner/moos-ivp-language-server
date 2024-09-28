@@ -9,9 +9,9 @@ mod parsers;
 mod tracer;
 mod trees;
 mod workspace;
+use crate::handler::Handler;
 
-use std::error::Error;
-
+use clap::Parser;
 use lsp_server::{Connection, Message, RequestId};
 use lsp_types::{
     ClientCapabilities, CompletionOptions, DiagnosticOptions, DiagnosticServerCapabilities,
@@ -20,16 +20,23 @@ use lsp_types::{
     SemanticTokensLegend, SemanticTokensOptions, SemanticTokensServerCapabilities,
     ServerCapabilities, TextDocumentSyncCapability, TextDocumentSyncKind, WorkDoneProgressOptions,
 };
-
-use tracing::trace as mlog;
+use std::error::Error;
+use tracer::Level;
 use tracing::{
     debug, debug_span, error, error_span, info, info_span, trace, trace_span, warn, warn_span,
 };
 
-use crate::handler::Handler;
+#[derive(Parser, Debug)]
+#[command(version, about)]
+struct Args {
+    /// Log level for print statements.
+    #[arg(short, long, default_value_t = Level::info)]
+    log_level: Level,
+}
 
 fn main() -> Result<(), Box<dyn Error + Sync + Send>> {
-    tracer::Tracer::init()?;
+    let args = Args::parse();
+    tracer::Tracer::init(args.log_level)?;
 
     // Note that  we must have our logging only write out to stderr.
     info!("Starting MOOS-IvP LSP server");
@@ -162,7 +169,6 @@ fn main_loop(
         "Connected to client: {}",
         serde_json::to_string_pretty(&client_capabilities).unwrap_or(String::new())
     );
-    info!("starting example main loop");
 
     let mut handler = Handler::new(connection, params);
     return handler.run(); // Blocks until there are no messages left

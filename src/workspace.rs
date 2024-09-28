@@ -10,7 +10,6 @@ use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::Instant;
-use tracing::info;
 
 use crate::cache::Project;
 
@@ -151,7 +150,7 @@ pub fn scan_workspace(
         }
 
         let diff = (Instant::now() - start).as_millis() as f64 * 1e-3;
-        tracing::info!("Workspace: parse time: {diff}")
+        tracing::debug!("Workspace: parse time: {diff}")
     });
 
     Ok(())
