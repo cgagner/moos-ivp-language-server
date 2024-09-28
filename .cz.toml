@@ -3,5 +3,9 @@ name = "cz_conventional_commits"
 tag_format = "v$version"
 version_scheme = "semver"
 version_provider = "cargo"
+version_files = [
+    "editors/vscode/package.json",
+    "Cargo.toml"
+]
 update_changelog_on_bump = true
 major_version_zero = true

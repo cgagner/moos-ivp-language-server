@@ -122,7 +122,7 @@ export async function activate(context: vscode.ExtensionContext) {
       'MOOS-IvP LSP Client',
       serverOptions,
       clientOptions,
-      true
+      false
     );
   }
 
