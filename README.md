@@ -143,7 +143,7 @@ testing with.
   - [ ] Behavior files
   - [ ] Left justified, left justified aligned equals, right justified
 * [X] Inlay Hints
-* [ ] Tracing via setTrace
+* [X] Tracing via setTrace
 
 #### Misc
 
