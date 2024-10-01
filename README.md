@@ -98,7 +98,7 @@ testing with.
 * [ ] Document editor setup
   - [ ] VS Code
   - [ ] Neovim
-  - [ ] Emacs
+  - [X] Emacs
 * [X] BHV Semantic highlighting
 * [ ] Add the ability to validate files from the command line
 * [ ] Add the ability to format files from the command line: `moosfmt`
