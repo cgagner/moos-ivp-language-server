@@ -17,10 +17,6 @@ jobs:
             target: x86_64-pc-windows-msvc
             target-name: win32-x64
             exe-name: moos-ivp-language-server.exe
-          - os: windows-latest
-            target: i686-pc-windows-msvc
-            target-name: win32-i686
-            exe-name: moos-ivp-language-server.exe
           - os: ubuntu-20.04
             target: x86_64-unknown-linux-gnu
             target-name: linux-x64
@@ -105,14 +101,6 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: moos-ivp-editor-win32-x64.vsix
-          path: dist
-      - uses: actions/download-artifact@v4
-        with:
-          name: moos-ivp-language-server-win32-i686.7z
-          path: dist
-      - uses: actions/download-artifact@v4
-        with:
-          name: moos-ivp-editor-win32-i686.vsix
           path: dist
       - uses: actions/download-artifact@v4
         with:
