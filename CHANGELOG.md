@@ -1,3 +1,9 @@
+## v0.1.7 (2024-09-30)
+
+### Fix
+
+- **ci**: Added the target to the cargo build.
+
 ## v0.1.6 (2024-09-30)
 
 ### Fix
