@@ -1,6 +1,6 @@
 [package]
 name = "moos-ivp-language-server"
-version = "0.1.7"
+version = "0.1.8"
 license-file = "LICENSE"
 description = "LSP server for the MOOS-IvP autonomy software suite."
 edition = "2021"

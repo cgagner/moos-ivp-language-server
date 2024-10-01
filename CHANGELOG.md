@@ -1,3 +1,9 @@
+## v0.1.8 (2024-09-30)
+
+### Fix
+
+- **ci**: Removed win32-i686 since its not supported.
+
 ## v0.1.7 (2024-09-30)
 
 ### Fix
