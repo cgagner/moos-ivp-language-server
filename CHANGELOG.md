@@ -1,3 +1,9 @@
+## v0.1.6 (2024-09-30)
+
+### Fix
+
+- Fixed invalid Cargo bump.
+
 ## v0.1.5 (2024-09-30)
 
 ### Fix
