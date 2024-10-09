@@ -4,37 +4,79 @@ Neovim has an LSP client that works with the `moos-ivp-language-server`.
 At the moment, the LSP client needs to be configured to automatically start
 the language server when a MOOS file is opened. 
 
-## Installing `moos-ivp-language-server`
+## Install `moos-ivp-language-server`
 
-### Pre-built binary
+### Source Code
 
-TODO: Use GitHub Actions to publish the binary artifacts.
+Building the `moos-ivp-lanugage-server` is the preferred method for
+developers that want to take advantage of the latest features. It requires
+Rust to be installed on the system. See 
+[Getting Started](https://www.rust-lang.org/learn/get-started) for instructions
+on installing Rust for your system.
 
-### Install from Cargo
-
-TODO: Need to publish `moos-ivp-language-server` to allow `cargo install`
-      to work for Rust users.
-
-```bash
-cargo install moos-ivp-language-server
-```
-
-### Install from source
-
-TODO: This cannot be completed until the `moos-rs` refactor has been
-completed because we need to be able to find the `moos-parsers` crate.
+Once Rust is installed, the `moos-ivp-language-server` can be installed using:
 
 ```bash
+git clone git@github.com:cgagner/moos-ivp-language-server.git
 cd moos-ivp-language-server
 cargo install --path .
 ```
 
+Verify `moos-ivp-language-server` is installed using:
+
+```bash
+moos-ivp-language-server --help
+```
+
+### Binary Install
+
+The `moos-ivp-language-server` automatically generates binary installation
+as part of the release process. Navigate to the
+[Releases](https://github.com/cgagner/moos-ivp-language-server/releases)
+page and select the binary file from the `Assets` section that matches your
+operating system and architecture. 
+
+Once downloaded, extract the executable into a directory in your PATH. For
+example, on Linux and Mac OS systems `~/.local/bin`.
+
+Example:
+
+```bash
+mkdir -p ~/.local/bin
+cp ~/Downloads/moos-ivp-language-server ~/.local/bin
+chmod 755 ~/.local/bin/moos-ivp-language-server
+echo "export PATH=${PATH}:~/.local/bin" >> ~/.bashrc
+source ~/.bashrc
+```
+
+Verify `moos-ivp-language-server` is installed using:
+
+```bash
+moos-ivp-language-server --help
+```
+
 ## Neovim configuration
 
-### New Neovim users
+### New Neovim users - Kickstart
 
-TODO: Fork the Neovim kickstart repository and include instructions here
-for cloning and setup.
+I have forked the [nvim-lua/kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)
+repository and created the `moos-ivp` branch to provide a simple way to get
+kickstarted with using Neovim and the `moos-ivp-language-server`. Use the
+commands below to get started.
+
+#### Linux and Mac
+
+```bash
+git clone -b moos-ivp https://github.com/cgagner/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+```
+
+#### Windows
+
+Powershell
+
+```bash
+git clone -b moos-ivp https://github.com/cgagner/kickstart.nvim.git $env:USERPROFILE\AppData\Local\nvim\
+```
 
 ### Manually modify `init.lua`
 

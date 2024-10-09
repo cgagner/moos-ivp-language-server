@@ -96,7 +96,7 @@ testing with.
   - [X] `--version` Print the version
   - [X] `--log-level=<level>` Set the log level of the application.
 * [ ] Document editor setup
-  - [ ] VS Code
+  - [X] VS Code
   - [ ] Neovim
   - [X] Emacs
 * [X] BHV Semantic highlighting
