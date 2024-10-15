@@ -8,15 +8,67 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-
+  
 jobs:
   build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-20.04
+            target: x86_64-unknown-linux-gnu
+            target-name: linux-x64
+            exe-name: moos-ivp-language-server
+          - os: macos-12
+            target: x86_64-apple-darwin
+            target-name: darwin-x64
+            exe-name: moos-ivp-language-server
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Repostiory
+      uses: actions/checkout@v4
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
     - name: Build
       run: cargo build --release --verbose
     - name: Run tests
       run: cargo test --verbose
+    - name: Copy Executable to VS Code Extension
+      run: cp target/release/${{ matrix.exe-name }} editors/vscode/server/
+    - name: Compress application
+      run: |
+        tar -zcf moos-ivp-language-server-${{ matrix.target-name }}.tar.gz ${{ matrix.exe-name }}
+        echo "ZIP_NAME=moos-ivp-language-server-${{ matrix.target-name }}.tar.gz" >> $GITHUB_ENV
+      if: ${{ ! endsWith(matrix.exe-name, '.exe') }}
+      working-directory: target/release
+    - name: Compress application
+      run: |
+        7z a moos-ivp-language-server-${{ matrix.target-name }}.7z ${{ matrix.exe-name }}
+        echo "ZIP_NAME=moos-ivp-language-server-${{ matrix.target-name }}.7z" >> $env:GITHUB_ENV
+      if: ${{ endsWith(matrix.exe-name, '.exe') }}
+      working-directory: target/release
+    - name: Upload Language Server
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{env.ZIP_NAME}}
+        path: |
+          target/release/${{env.ZIP_NAME}}
+          !target/release/moos-ivp-language-server.d
+        compression-level: 9
+        if-no-files-found: error
+    - name: Build VS Code Extension
+      run: npm install && npm run compile
+      working-directory: editors/vscode
+    - name: Package VS Code Extension
+      run: npx @vscode/vsce package --out moos-ivp-editor-${{ matrix.target-name }}.vsix
+      working-directory: editors/vscode
+    - name: Upload VS Code Extension
+      uses: actions/upload-artifact@v4
+      with:
+        name: moos-ivp-editor-${{ matrix.target-name }}.vsix
+        path: editors/vscode/moos-ivp-editor-${{ matrix.target-name }}.vsix
+        compression-level: 0
+        if-no-files-found: error
