@@ -1,3 +1,13 @@
+## v0.2.0 (2024-10-15)
+
+### Feat
+
+- **nsplug**: Updated nsplug to display warning for missing includes
+
+### Fix
+
+- **build**: Fixed `Cargo.toml` to use `all-parsers` feature
+
 ## v0.1.8 (2024-09-30)
 
 ### Fix
