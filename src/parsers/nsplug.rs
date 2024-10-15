@@ -21,7 +21,7 @@ use moos_parser::{
 };
 use tracing::{debug, info};
 
-use super::{find_relative_file, new_error_diagnostic};
+use super::{find_relative_file, new_error_diagnostic, new_warning_diagnostic};
 
 const INVALID_CONDITION_STR: &str = "Invalid conditions. #ifdef conditions cannot contain both disjunction (logical-or) and conjunction (logical-and) operators.";
 
@@ -290,6 +290,32 @@ fn handle_include(
             tooltip: None,
             data: None,
         });
+    } else {
+        let diag_start = Location {
+            index: range.start,
+            line,
+        };
+        let end_index = if let Some(tag) = &tag {
+            tag.get_end_index()
+        } else {
+            path.get_end_index()
+        };
+        let diag_end = Location {
+            index: end_index,
+            line,
+        };
+        // TODO: Once the language server supports setting the include path,
+        // update the warning message to include instructions for updating the
+        // include path
+        let warning = new_warning_diagnostic(
+            &diag_start,
+            &diag_end,
+            format!(
+                "Included file not found. Cannot open '{}'",
+                path.to_string().replace("\"", "")
+            ),
+        );
+        document.diagnostics.push(warning);
     }
     if let Some(tag) = tag {
         document.semantic_tokens.insert(

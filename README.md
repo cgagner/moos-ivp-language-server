@@ -43,7 +43,7 @@ MOOS Mission files, IvP Behavior files, and NSPlug template files.
         is not defined and will fail if running in strict mode. However, since
         many NSPlug variables are defined launch scripts, the language server
         will only ever treat these as warnings. 
-      - TODO: Display a warning if an `#include` directive has a path that
+      - Display a warning if an `#include` directive has a path that
         does not exist. This cannot be treated as an error because NSPlug
         has the ability to take in a list of directories (using the `--path=`
         argument) to search for files. That list of directories is typically
@@ -112,7 +112,7 @@ testing with.
 * [ ] Change Behavior/ProcessConfig parameters to be variables not keywords.
 * [X] Fix `pMarineViewer` button parameters with `#` in it.
 * [ ] Rename "macro" to "directive" in `moos-parser`. 
-* [ ] Add warning for missing include
+* [X] Add warning for missing include
 * [ ] Add better warning message for missing quote
 * [ ] Add warning if MOOS mission file has a parameter with an empty string.
 
@@ -133,6 +133,9 @@ testing with.
 * [X] BHV Semantic highlighting
   - [ ] Add support to for inactive regions
   - [ ] Add support for parsing conditions
+* [ ] Add a way to specify the include path to the language server. This
+      may need to be per mission directory. It could be something like a
+      `.mils.yaml` file in the directory.
 * [ ] Includes that are not found should display an error or warning.
 * [ ] Includes that are found should recursively check for errors in the
       included files. Display an error if the include has an error.
