@@ -96,7 +96,8 @@ testing with.
   - [X] `--version` Print the version
   - [X] `--log-level=<level>` Set the log level of the application.
 * [ ] Document editor setup
-  - [X] VS Code
+  - [ ] VS Code
+    - [ ] Update README.md
   - [ ] Neovim
   - [X] Emacs
 * [X] BHV Semantic highlighting
@@ -105,6 +106,16 @@ testing with.
 * [ ] Fix code completion on the last line
 * [X] Fix parsers handling of EOF
 * [X] Change logging level and remove unneeded print statements.
+* [ ] Add security policy
+* [ ] Add contributing guide
+* [ ] Change booleans to be keywords
+* [ ] Change Behavior/ProcessConfig parameters to be variables not keywords.
+* [X] Fix `pMarineViewer` button parameters with `#` in it.
+* [ ] Rename "macro" to "directive" in `moos-parser`. 
+* [ ] Add warning for missing include
+* [ ] Add better warning message for missing quote
+* [ ] Add warning if MOOS mission file has a parameter with an empty string.
+
 
 ### Planned Features
 

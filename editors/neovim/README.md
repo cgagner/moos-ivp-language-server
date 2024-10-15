@@ -74,7 +74,7 @@ git clone -b moos-ivp https://github.com/cgagner/kickstart.nvim.git "${XDG_CONFI
 
 Powershell
 
-```bash
+```powershell
 git clone -b moos-ivp https://github.com/cgagner/kickstart.nvim.git $env:USERPROFILE\AppData\Local\nvim\
 ```
 
